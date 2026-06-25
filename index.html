@@ -41,7 +41,7 @@
           <div class="metric-card">
             <span>Активные этапы</span>
             <strong>6</strong>
-            <p>Pre-sale, Development, Pre-production, Production, Post, Release</p>
+            <p>Pre-Sale, Девелопмент, Пре-продакшн, Продакшн, Пост-продакшн, Релиз</p>
           </div>
           <div class="metric-card">
             <span>Напоминания</span>
@@ -96,12 +96,12 @@
               <label>
                 Этап
                 <select id="stage" name="stage" required>
-                  <option value="Pre-sale">Pre-sale</option>
-                  <option value="Development">Development</option>
-                  <option value="Pre-production">Pre-production</option>
-                  <option value="Production">Production</option>
-                  <option value="Post-production">Post-production</option>
-                  <option value="Release">Release</option>
+                  <option value="Pre-Sale">Pre-Sale</option>
+                  <option value="Девелопмент">Девелопмент</option>
+                  <option value="Пре-продакшн">Пре-продакшн</option>
+                  <option value="Продакшн">Продакшн</option>
+                  <option value="Пост-продакшн">Пост-продакшн</option>
+                  <option value="Релиз">Релиз</option>
                 </select>
               </label>
               <label>
@@ -130,7 +130,9 @@
             <button id="reset-demo" class="text-button" type="button">Сбросить демо-данные</button>
           </div>
 
-          <div id="project-list" class="project-list" aria-live="polite"></div>
+          <div class="board-scroll">
+            <div id="project-list" class="project-list" aria-live="polite"></div>
+          </div>
         </div>
       </section>
     </main>
@@ -139,14 +141,11 @@
   <template id="project-card-template">
     <article class="project-card">
       <div class="project-card__top">
-        <div>
-          <span class="stage-pill"></span>
-          <h3 class="project-title"></h3>
-        </div>
+        <span class="stage-pill"></span>
         <span class="project-format"></span>
       </div>
-
-      <dl class="project-meta">
+      <h3 class="project-title"></h3>
+      <dl class="project-meta project-meta--compact">
         <div>
           <dt>Продюсер</dt>
           <dd class="project-owner"></dd>
@@ -156,25 +155,54 @@
           <dd class="project-deadline"></dd>
         </div>
       </dl>
+    </article>
+  </template>
 
-      <p class="project-description"></p>
+  <div id="project-modal" class="project-modal" hidden>
+    <div class="project-modal__backdrop" data-close-modal="true"></div>
+    <section class="project-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="modal-project-title">
+      <button id="project-modal-close" class="project-modal__close" type="button" aria-label="Закрыть карточку">×</button>
+
+      <div class="project-modal__header">
+        <div>
+          <span id="modal-project-stage" class="stage-pill"></span>
+          <h3 id="modal-project-title" class="project-modal__title"></h3>
+        </div>
+        <span id="modal-project-format" class="project-format"></span>
+      </div>
+
+      <dl class="project-meta">
+        <div>
+          <dt>Продюсер</dt>
+          <dd id="modal-project-owner"></dd>
+        </div>
+        <div>
+          <dt>Дедлайн</dt>
+          <dd id="modal-project-deadline"></dd>
+        </div>
+      </dl>
+
+      <div class="project-modal__description">
+        <h4>Описание проекта</h4>
+        <p id="modal-project-description"></p>
+      </div>
 
       <div class="task-section">
         <div class="task-section__header">
           <h4>Задачи и напоминания</h4>
-          <span class="task-count">0</span>
+          <span id="modal-task-count" class="task-count">0</span>
         </div>
 
-        <ul class="task-list"></ul>
+        <ul id="modal-task-list" class="task-list"></ul>
 
-        <form class="task-form">
-          <input class="task-text" type="text" placeholder="Новая задача или напоминание" required>
-          <input class="task-assignee" type="text" placeholder="Кому назначено" required>
+        <form id="modal-task-form" class="task-form">
+          <input id="modal-task-text" class="task-text" type="text" placeholder="Новая задача или напоминание" required>
+          <input id="modal-task-assignee" class="task-assignee" type="text" placeholder="Кому назначено" required>
           <button class="secondary-button small-button" type="submit">Добавить</button>
         </form>
       </div>
-    </article>
-  </template>
+    </section>
+  </div>
 
   <script src="script.js"></script>
 </body>

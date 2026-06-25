@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CineFlow CRM</title>
+  <title>Документальные проекты Студиотех</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
@@ -17,117 +17,72 @@
           <span class="brand-mark">CF</span>
           <div>
             <p class="eyebrow">GitHub Pages Demo</p>
-            <h1>CineFlow CRM</h1>
+            <h1>Документальные проекты Студиотех</h1>
           </div>
         </div>
-        <a class="ghost-link" href="#project-form">Новый проект</a>
       </nav>
 
-      <div class="hero-grid">
-        <section class="hero-copy">
-          <p class="section-kicker">CRM для кино-студии</p>
-          <h2>Трекинг проектов от пре-сейла до релиза в одной рабочей ленте.</h2>
-          <p class="hero-text">
-            Создавайте карточки фильмов и сериалов, фиксируйте ключевые данные по проекту,
-            ведите этапы производства и не теряйте задачи с напоминаниями для команды.
-          </p>
-          <div class="hero-actions">
-            <a class="primary-button" href="#project-form">Создать карточку</a>
-            <a class="secondary-button" href="#project-board">Открыть доску</a>
-          </div>
-        </section>
-
-        <aside class="hero-panel">
-          <div class="metric-card">
-            <span>Активные этапы</span>
-            <strong>6</strong>
-            <p>Pre-Sale, Девелопмент, Пре-продакшн, Продакшн, Пост-продакшн, Релиз</p>
-          </div>
-          <div class="metric-card">
+      <div class="hero-panel">
+        <article class="metric-card">
+          <div class="metric-card__header">
             <span>Напоминания</span>
-            <strong>Локально</strong>
-            <p>Пример хранения данных в браузере без сервера и сборки.</p>
+            <div class="metric-card__nav">
+              <button id="reminders-prev" class="metric-nav" type="button" aria-label="Предыдущие напоминания">←</button>
+              <button id="reminders-next" class="metric-nav" type="button" aria-label="Следующие напоминания">→</button>
+            </div>
           </div>
-        </aside>
+          <ul id="reminders-list" class="metric-list"></ul>
+        </article>
+
+        <article class="metric-card">
+          <div class="metric-card__header">
+            <span>Ближайшие релизы</span>
+            <div class="metric-card__nav">
+              <button id="releases-prev" class="metric-nav" type="button" aria-label="Предыдущий релиз">←</button>
+              <button id="releases-next" class="metric-nav" type="button" aria-label="Следующий релиз">→</button>
+            </div>
+          </div>
+          <div id="releases-list" class="release-stack"></div>
+        </article>
       </div>
     </header>
 
     <main>
-      <section class="features">
-        <article class="feature-card">
-          <h3>Карточки проектов</h3>
-          <p>Название, формат, дедлайн, ответственный продюсер и краткий синопсис проекта.</p>
-        </article>
-        <article class="feature-card">
-          <h3>Этапы производства</h3>
-          <p>Наглядное распределение проектов по этапам: от пре-сейла до релиза.</p>
-        </article>
-        <article class="feature-card">
-          <h3>Задачи и напоминания</h3>
-          <p>Добавляйте задачи внутри каждой карточки и назначайте ответственного.</p>
-        </article>
-      </section>
-
       <section class="workspace">
         <div class="form-panel">
-          <div class="panel-heading">
-            <p class="section-kicker">Новый проект</p>
-            <h2>Создать карточку</h2>
+          <div class="panel-heading panel-heading--with-action">
+            <div>
+              <p class="section-kicker">Новый проект</p>
+              <h2>Создать карточку</h2>
+            </div>
+            <button id="schema-editor-open" class="icon-button" type="button" aria-label="Изменить шаблон карточки" title="Изменить шаблон карточки">
+              <span aria-hidden="true">✎</span>
+            </button>
           </div>
 
           <form id="project-form" class="project-form">
-            <label>
-              Название проекта
-              <input id="title" name="title" type="text" placeholder="Например, Северный ветер" required>
-            </label>
-
-            <div class="two-columns">
-              <label>
-                Формат
-                <input id="format" name="format" type="text" placeholder="Фильм, сериал, док" required>
-              </label>
-              <label>
-                Продюсер
-                <input id="owner" name="owner" type="text" placeholder="Имя ответственного" required>
-              </label>
-            </div>
-
-            <div class="two-columns">
-              <label>
-                Этап
-                <select id="stage" name="stage" required>
-                  <option value="Pre-Sale">Pre-Sale</option>
-                  <option value="Девелопмент">Девелопмент</option>
-                  <option value="Пре-продакшн">Пре-продакшн</option>
-                  <option value="Продакшн">Продакшн</option>
-                  <option value="Пост-продакшн">Пост-продакшн</option>
-                  <option value="Релиз">Релиз</option>
-                </select>
-              </label>
-              <label>
-                Контрольная дата
-                <input id="deadline" name="deadline" type="date" required>
-              </label>
-            </div>
-
-            <label>
-              Описание проекта
-              <textarea id="description" name="description" rows="5" placeholder="Краткое описание, статус переговоров, состав команды"></textarea>
-            </label>
-
+            <div id="project-form-fields" class="project-form-fields"></div>
             <button class="primary-button submit-button" type="submit">Добавить на доску</button>
           </form>
         </div>
 
         <div class="board-panel" id="project-board">
-          <div class="panel-heading">
-            <p class="section-kicker">Доска проектов</p>
-            <h2>Текущий пайплайн</h2>
+          <div class="panel-heading panel-heading--board">
+            <div class="board-switcher-wrap">
+              <button id="board-switcher" class="board-switcher" type="button" aria-haspopup="true" aria-expanded="false">
+                <span id="board-switcher-label">Текущий пайплайн</span>
+                <span aria-hidden="true">▾</span>
+              </button>
+              <div id="board-switcher-menu" class="board-switcher-menu" hidden>
+                <button class="board-switcher-menu__item" data-board-view="active" type="button">Основная доска</button>
+                <button class="board-switcher-menu__item" data-board-view="archive" type="button">Архив</button>
+              </div>
+            </div>
+            <p class="section-kicker" id="board-subtitle">Основные проекты по этапам производства</p>
           </div>
 
           <div class="board-toolbar">
             <span id="project-count">0 проектов</span>
-            <button id="reset-demo" class="text-button" type="button">Сбросить демо-данные</button>
           </div>
 
           <div class="board-scroll">
@@ -142,16 +97,15 @@
     <article class="project-card">
       <div class="project-card__top">
         <span class="stage-pill"></span>
-        <span class="project-format"></span>
       </div>
       <h3 class="project-title"></h3>
       <dl class="project-meta project-meta--compact">
         <div>
-          <dt>Продюсер</dt>
+          <dt class="project-owner-label">Продакшн</dt>
           <dd class="project-owner"></dd>
         </div>
         <div>
-          <dt>Дедлайн</dt>
+          <dt class="project-deadline-label">Дата релиза</dt>
           <dd class="project-deadline"></dd>
         </div>
       </dl>
@@ -168,24 +122,25 @@
           <span id="modal-project-stage" class="stage-pill"></span>
           <h3 id="modal-project-title" class="project-modal__title"></h3>
         </div>
-        <span id="modal-project-format" class="project-format"></span>
+      </div>
+
+      <div class="project-modal__actions">
+        <button id="modal-archive-action" class="card-action card-action--archive" type="button">В архив</button>
+        <button id="modal-delete-action" class="card-action card-action--delete" type="button">Удалить</button>
       </div>
 
       <dl class="project-meta">
         <div>
-          <dt>Продюсер</dt>
+          <dt id="modal-project-owner-label">Продакшн</dt>
           <dd id="modal-project-owner"></dd>
         </div>
         <div>
-          <dt>Дедлайн</dt>
+          <dt id="modal-project-deadline-label">Дата релиза</dt>
           <dd id="modal-project-deadline"></dd>
         </div>
       </dl>
 
-      <div class="project-modal__description">
-        <h4>Описание проекта</h4>
-        <p id="modal-project-description"></p>
-      </div>
+      <div id="modal-project-fields" class="project-details-grid"></div>
 
       <div class="task-section">
         <div class="task-section__header">
@@ -198,8 +153,35 @@
         <form id="modal-task-form" class="task-form">
           <input id="modal-task-text" class="task-text" type="text" placeholder="Новая задача или напоминание" required>
           <input id="modal-task-assignee" class="task-assignee" type="text" placeholder="Кому назначено" required>
+          <input id="modal-task-date" class="task-date" type="date">
           <button class="secondary-button small-button" type="submit">Добавить</button>
         </form>
+      </div>
+    </section>
+  </div>
+
+  <div id="schema-modal" class="project-modal" hidden>
+    <div class="project-modal__backdrop" data-close-schema="true"></div>
+    <section class="project-modal__dialog schema-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="schema-modal-title">
+      <button id="schema-modal-close" class="project-modal__close" type="button" aria-label="Закрыть редактор шаблона">×</button>
+
+      <div class="project-modal__header">
+        <div>
+          <p class="section-kicker">Шаблон карточки</p>
+          <h3 id="schema-modal-title" class="project-modal__title">Редактор полей</h3>
+        </div>
+      </div>
+
+      <p class="schema-modal__intro">
+        Добавляйте поля, меняйте их названия и формат, переставляйте местами и удаляйте лишнее.
+        Поля «Название», «Продакшн» и «Дата релиза» остаются обязательными.
+      </p>
+
+      <div id="schema-fields-list" class="schema-fields-list"></div>
+
+      <div class="schema-modal__actions">
+        <button id="schema-add-field" class="secondary-button" type="button">Добавить поле</button>
+        <button id="schema-save" class="primary-button" type="button">Сохранить шаблон</button>
       </div>
     </section>
   </div>

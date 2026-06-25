@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CineFlow CRM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="hero">
+      <nav class="topbar">
+        <div class="brand">
+          <span class="brand-mark">CF</span>
+          <div>
+            <p class="eyebrow">GitHub Pages Demo</p>
+            <h1>CineFlow CRM</h1>
+          </div>
+        </div>
+        <a class="ghost-link" href="#project-form">Новый проект</a>
+      </nav>
+
+      <div class="hero-grid">
+        <section class="hero-copy">
+          <p class="section-kicker">CRM для кино-студии</p>
+          <h2>Трекинг проектов от пре-сейла до релиза в одной рабочей ленте.</h2>
+          <p class="hero-text">
+            Создавайте карточки фильмов и сериалов, фиксируйте ключевые данные по проекту,
+            ведите этапы производства и не теряйте задачи с напоминаниями для команды.
+          </p>
+          <div class="hero-actions">
+            <a class="primary-button" href="#project-form">Создать карточку</a>
+            <a class="secondary-button" href="#project-board">Открыть доску</a>
+          </div>
+        </section>
+
+        <aside class="hero-panel">
+          <div class="metric-card">
+            <span>Активные этапы</span>
+            <strong>6</strong>
+            <p>Pre-sale, Development, Pre-production, Production, Post, Release</p>
+          </div>
+          <div class="metric-card">
+            <span>Напоминания</span>
+            <strong>Локально</strong>
+            <p>Пример хранения данных в браузере без сервера и сборки.</p>
+          </div>
+        </aside>
+      </div>
+    </header>
+
+    <main>
+      <section class="features">
+        <article class="feature-card">
+          <h3>Карточки проектов</h3>
+          <p>Название, формат, дедлайн, ответственный продюсер и краткий синопсис проекта.</p>
+        </article>
+        <article class="feature-card">
+          <h3>Этапы производства</h3>
+          <p>Наглядное распределение проектов по этапам: от пре-сейла до релиза.</p>
+        </article>
+        <article class="feature-card">
+          <h3>Задачи и напоминания</h3>
+          <p>Добавляйте задачи внутри каждой карточки и назначайте ответственного.</p>
+        </article>
+      </section>
+
+      <section class="workspace">
+        <div class="form-panel">
+          <div class="panel-heading">
+            <p class="section-kicker">Новый проект</p>
+            <h2>Создать карточку</h2>
+          </div>
+
+          <form id="project-form" class="project-form">
+            <label>
+              Название проекта
+              <input id="title" name="title" type="text" placeholder="Например, Северный ветер" required>
+            </label>
+
+            <div class="two-columns">
+              <label>
+                Формат
+                <input id="format" name="format" type="text" placeholder="Фильм, сериал, док" required>
+              </label>
+              <label>
+                Продюсер
+                <input id="owner" name="owner" type="text" placeholder="Имя ответственного" required>
+              </label>
+            </div>
+
+            <div class="two-columns">
+              <label>
+                Этап
+                <select id="stage" name="stage" required>
+                  <option value="Pre-sale">Pre-sale</option>
+                  <option value="Development">Development</option>
+                  <option value="Pre-production">Pre-production</option>
+                  <option value="Production">Production</option>
+                  <option value="Post-production">Post-production</option>
+                  <option value="Release">Release</option>
+                </select>
+              </label>
+              <label>
+                Контрольная дата
+                <input id="deadline" name="deadline" type="date" required>
+              </label>
+            </div>
+
+            <label>
+              Описание проекта
+              <textarea id="description" name="description" rows="5" placeholder="Краткое описание, статус переговоров, состав команды"></textarea>
+            </label>
+
+            <button class="primary-button submit-button" type="submit">Добавить на доску</button>
+          </form>
+        </div>
+
+        <div class="board-panel" id="project-board">
+          <div class="panel-heading">
+            <p class="section-kicker">Доска проектов</p>
+            <h2>Текущий пайплайн</h2>
+          </div>
+
+          <div class="board-toolbar">
+            <span id="project-count">0 проектов</span>
+            <button id="reset-demo" class="text-button" type="button">Сбросить демо-данные</button>
+          </div>
+
+          <div id="project-list" class="project-list" aria-live="polite"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <template id="project-card-template">
+    <article class="project-card">
+      <div class="project-card__top">
+        <div>
+          <span class="stage-pill"></span>
+          <h3 class="project-title"></h3>
+        </div>
+        <span class="project-format"></span>
+      </div>
+
+      <dl class="project-meta">
+        <div>
+          <dt>Продюсер</dt>
+          <dd class="project-owner"></dd>
+        </div>
+        <div>
+          <dt>Дедлайн</dt>
+          <dd class="project-deadline"></dd>
+        </div>
+      </dl>
+
+      <p class="project-description"></p>
+
+      <div class="task-section">
+        <div class="task-section__header">
+          <h4>Задачи и напоминания</h4>
+          <span class="task-count">0</span>
+        </div>
+
+        <ul class="task-list"></ul>
+
+        <form class="task-form">
+          <input class="task-text" type="text" placeholder="Новая задача или напоминание" required>
+          <input class="task-assignee" type="text" placeholder="Кому назначено" required>
+          <button class="secondary-button small-button" type="submit">Добавить</button>
+        </form>
+      </div>
+    </article>
+  </template>
+
+  <script src="script.js"></script>
+</body>
+</html>
